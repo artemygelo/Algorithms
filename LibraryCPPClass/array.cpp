@@ -1,4 +1,5 @@
 #include "array.h"
+#include <utility>
 
 Array::Array(size_t size)
     : data(new Data[size]{}), length(size)
@@ -17,14 +18,10 @@ Array &Array::operator=(const Array &a)
     if (this == &a)
         return *this;
 
-    Data* newData = new Data[a.length];
+    Array copy(a);
 
-    for (size_t i = 0; i < a.length; ++i)
-        newData[i] = a.data[i];
-
-    delete[] data;
-    data = newData;
-    length = a.length;
+    std::swap(data, copy.data);
+    std::swap(length, copy.length);
 
     return *this;
 }

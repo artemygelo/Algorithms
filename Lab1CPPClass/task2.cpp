@@ -1,6 +1,6 @@
 #include <iostream>
 #include <fstream>
-#include "../LibraryCPPClass/array.h"
+#include "array.h"
 
 int main(int argc, char* argv[])
 {
@@ -38,17 +38,25 @@ int main(int argc, char* argv[])
     long long minimum = -1;
 
     for (int i = 0; i < n; ++i) {
+        int first = a.get(i);
+
+        if (first % 2 != 0)
+            continue;
+
         for (int j = i + 1; j < n; ++j) {
-            if (a.get(i) % 2 == 0 && a.get(j) % 2 == 0) {
-                long long difference =
-                    static_cast<long long>(a.get(i)) - a.get(j);
+            int second = a.get(j);
 
-                if (difference < 0)
-                    difference = -difference;
+            if (second % 2 != 0)
+                continue;
 
-                if (minimum == -1 || difference < minimum)
-                    minimum = difference;
-            }
+            long long difference =
+                static_cast<long long>(first) - second;
+
+            if (difference < 0)
+                difference = -difference;
+
+            if (minimum == -1 || difference < minimum)
+                minimum = difference;
         }
     }
 
